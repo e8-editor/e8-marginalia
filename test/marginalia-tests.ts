@@ -6,7 +6,7 @@
 // candidates. `make test` runs them in e8 --batch, as CI does, with
 // e8-vertico from .e8/deps.
 
-import { ertDeftest, should, shouldEqual, shouldError } from "ert";
+import { ertDeftest, should, shouldEqual } from "ert";
 import "marginalia";
 import "vertico";
 
@@ -70,7 +70,10 @@ function atPrompt<T>(keys: string, snapshot: () => T): T {
   };
   e8.addHook("pre-command-hook", hook);
   try {
-    shouldError(() => e8.executeKbdMacro(`${keys} C-g`), { type: "quit" });
+    // C-g leaves the minibuffer and the macro goes on, as in Emacs, where
+    // a minibuffer-quit ends no keyboard macro; E8 0.5.9 and earlier ended
+    // it with quit.
+    e8.conditionCase(() => e8.executeKbdMacro(`${keys} C-g`), { quit: () => undefined });
   } finally {
     e8.removeHook("pre-command-hook", hook);
   }
