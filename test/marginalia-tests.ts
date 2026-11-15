@@ -71,8 +71,9 @@ function atPrompt<T>(keys: string, snapshot: () => T): T {
   e8.addHook("pre-command-hook", hook);
   try {
     // C-g leaves the minibuffer and the macro goes on, as in Emacs, where
-    // a minibuffer-quit ends no keyboard macro.
-    e8.executeKbdMacro(`${keys} C-g`);
+    // a minibuffer-quit ends no keyboard macro; E8 0.5.9 and earlier ended
+    // it with quit.
+    e8.conditionCase(() => e8.executeKbdMacro(`${keys} C-g`), { quit: () => undefined });
   } finally {
     e8.removeHook("pre-command-hook", hook);
   }
