@@ -1,0 +1,42 @@
+marginalia NEWS -- history of user-visible changes.
+
+This is the news of e8-marginalia, the E8 port of marginalia.  'C-h P'
+shows it under the package's description.
+
+
+* Changes in marginalia 0.1.0
+
+This is the first release, a port of marginalia 2.3.  It needs E8
+0.3.1 or newer.
+
+** 'marginalia-mode' annotates completion candidates by their category.
+
+** Commands are annotated with their key and documentation.
+
+** Variables are annotated with their value and documentation.
+The values of variables named like api-key, as
+'marginalia-censor-variables' matches them, are not shown.
+
+** Faces show a sample, and minor modes whether they are on.
+
+** Buffers show their state and file; files their modes, size and age.
+A file's owner and group show when it is not yours.
+'marginalia-max-relative-age' says how old a file can be and still
+show as "3 hours ago".
+
+** Functions, symbols, bookmarks, themes and tabs are annotated too.
+
+** 'marginalia-cycle' switches to the category's next annotator.
+For commands it goes from the full annotation to the key alone, to the
+table's own annotation, to none.  Bind it yourself, such as to 'M-A'
+in 'minibuffer-local-map'.
+
+** 'marginalia-annotators' lists each category's annotators in order.
+
+** 'marginalia-align' lines the annotations up left, centre or right.
+'marginalia-align-offset' moves them, 'marginalia-field-width' caps a
+field at 80 columns, and 'marginalia-separator' goes between fields.
+
+** A prompt's category can come from its text or its command.
+'marginalia-prompt-categories' and 'marginalia-command-categories'
+give it when the prompt does not.
