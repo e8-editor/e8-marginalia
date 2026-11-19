@@ -142,7 +142,11 @@ ertDeftest("marginalia-annotations-are-what-marginalia-gives-in-emacs", () => {
 
 ertDeftest("marginalia-vertico-shows-annotations-aligned-beside-the-candidates", () => {
   modesOn();
-  const after = atPrompt("M-x a n - t e s t - c", candidates);
+  // The input yanked at once: typed a key at a time, the longer commands
+  // "a n" shows on the way, as ansi-color-for-comint-mode-filter, would
+  // widen the column, as marginalia keeps the widest it has seen.
+  e8.killNew("an-test-c");
+  const after = atPrompt("M-x C-y", candidates);
   // The annotation starts at column 30, the candidate and its key rounded up to ten, then the separator.
   should(after.includes("an-test-command (C-c t)         Run the test thing."), after);
 });
